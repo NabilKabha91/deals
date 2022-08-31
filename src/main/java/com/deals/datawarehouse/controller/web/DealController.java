@@ -43,7 +43,7 @@ public class DealController {
     @GetMapping(value = {"/"})
     public String getAddDealView(Model model){
         model.addAttribute("deal", new DealForm());
-        LOG.info("Viewing the add deals page (homepage)");
+        LOG.info("add deals page (homepage)");
         return "addDeal";
     }
 
@@ -51,9 +51,9 @@ public class DealController {
     public String addDeal(@ModelAttribute("deal") DealForm form, Model model, BindingResult result){
         getDealValidator().validate(form, result);
         if(result.hasErrors()){
-            LOG.error("Errors was found from the UI when adding a deal");
+            LOG.error("Errors!, when adding a deal");
             model.addAttribute("deal", form);
-            model.addAttribute("errorMsg", "Errors on submitted deal, please check the fields below.");
+            model.addAttribute("errorMsg", "Errors! please check the required fields below.");
             return "addDeal";
         }
         DealDTO dealDTO = populateFormIntoDTO(form);
@@ -61,13 +61,13 @@ public class DealController {
         try {
             newDeal= getDealFacade().createNewDeal(dealDTO);
         } catch (DealException e) {
-            LOG.error("Errors was found from the UI when adding a deal: {}", e.getMessage());
+            LOG.error("Errors! when adding a deal: {}", e.getMessage());
             model.addAttribute("errorMsg", e.getMessage());
             return "redirect:/deals";
         }
 
         if(newDeal == null){
-            LOG.error("Deal has not been added successfully");
+            LOG.error("Deal successfully added ");
             return "redirect:/deals";
         }
         return  "redirect:/"+newDeal.getDealCode();
@@ -78,7 +78,7 @@ public class DealController {
         LOG.info("Viewing the Deal {}", dealId);
         Optional<DealDTO> dealById = getDealFacade().getDealById(dealId);
         if(dealById.isEmpty()){
-            LOG.error("Deal {} was not found", dealId);
+            LOG.error("Deal {} not found", dealId);
             return "redirect:/";
         }
         model.addAttribute("deal", dealById.get());
@@ -88,7 +88,7 @@ public class DealController {
     @GetMapping("/deals")
     public String viewAllDeals(Model model){
         List<DealDTO> allDeals = getDealFacade().getAllDeals();
-        LOG.info("{} deals was found", allDeals.size());
+        LOG.info("{} deals found", allDeals.size());
         model.addAttribute("deals", allDeals);
         return "allDeals";
     }

@@ -1,6 +1,6 @@
 package com.deals.datawarehouse.deal;
 
-import com.deals.datawarehouse.DealsdatawarehouseApplication;
+import com.deals.datawarehouse.DealsDataWarehouseApplication;
 import com.deals.datawarehouse.dto.DealDTO;
 import com.deals.datawarehouse.facade.DealFacade;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = DealsdatawarehouseApplication.class)
+        classes = DealsDataWarehouseApplication.class)
 @AutoConfigureMockMvc
 @TestPropertySource(
         locations = "classpath:application-integrationtest.properties")
